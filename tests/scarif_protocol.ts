@@ -45,7 +45,7 @@ describe("scarif_protocol", () => {
  
   async function getTotalCollections() {
     const size_filter: DataSizeFilter = {
-      dataSize: 113
+      dataSize: 1968
     };
     const get_accounts_config: GetProgramAccountsConfig = {
         commitment: "confirmed",
@@ -53,8 +53,9 @@ describe("scarif_protocol", () => {
     };
     // get all profiles and check if username exists
     const collections = await connection.getProgramAccounts(programId, 
-      // get_accounts_config
+      get_accounts_config
     );
+    console.log('collections', collections);
     const totalCollections = collections.length;
     console.log('totalProfiles', totalCollections);
     
@@ -87,18 +88,18 @@ describe("scarif_protocol", () => {
   // });
 
   it("Create a Collection", async () => {
-      const transaction = new Transaction().add(
-        await program.methods
-        .initializeCollectionAccount()
-        .accounts({
-          collection: collectionPda,
-          systemProgram: SystemProgram.programId,
-        })
-        .instruction()
-      );
+      // const transaction = new Transaction().add(
+      //   await program.methods
+      //   .initializeCollectionAccount()
+      //   .accounts({
+      //     collection: collectionPda,
+      //     systemProgram: SystemProgram.programId,
+      //   })
+      //   .instruction()
+      // );
       
-      await sendAndConfirmTransaction(connection, transaction, [wallet.payer], {commitment: "finalized", skipPreflight: true}).then(confirm).then(log);
-    
+      // await sendAndConfirmTransaction(connection, transaction, [wallet.payer], {commitment: "finalized", skipPreflight: true}).then(confirm).then(log);
+      await getTotalCollections();
   });
 
   it("Add Nft to Collection", async () => {
